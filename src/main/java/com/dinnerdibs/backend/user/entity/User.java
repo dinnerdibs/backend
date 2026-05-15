@@ -61,6 +61,7 @@ public class User extends BaseEntity {
      * A boolean flag to indicate whether a User's email address has been verified by the system
      */
     @Column(name = "email_verified")
+    @Builder.Default
     private boolean emailVerified = false;
 
     /**
@@ -159,6 +160,7 @@ public class User extends BaseEntity {
      * A boolean flag to indicate whether the provided local street address must be visible to the public or not
      */
     @Column(name = "show_address_local")
+    @Builder.Default
     private boolean showAddressLocal = false;
 
     /**
@@ -199,6 +201,7 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     @Column(name = "role")
     private Set<Role> roles = new HashSet<>();
 }
