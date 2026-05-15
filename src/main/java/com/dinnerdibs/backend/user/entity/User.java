@@ -61,7 +61,7 @@ public class User extends BaseEntity {
      * A boolean flag to indicate whether a User's email address has been verified by the system
      */
     @Column(name = "email_verified")
-    private Boolean emailVerified = false;
+    private boolean emailVerified = false;
 
     /**
      * A User's account status based on their activity
@@ -159,7 +159,7 @@ public class User extends BaseEntity {
      * A boolean flag to indicate whether the provided local street address must be visible to the public or not
      */
     @Column(name = "show_address_local")
-    private Boolean showAddressLocal = false;
+    private boolean showAddressLocal = false;
 
     /**
      * A User's city address field
