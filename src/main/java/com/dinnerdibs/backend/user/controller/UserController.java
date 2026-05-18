@@ -33,7 +33,7 @@ public class UserController {
      * Path: /api/v/users/register (POST)
      *
      * @param request A UserRegisterRequest instance with provided fields
-     * @return A UserResponse instance with formatted safe fields
+     * @return A UserResponse instance with formatted safe fields in the ApiResponse structure
      */
     @PostMapping(path = "/register")
     public ResponseEntity<ApiResponse<UserResponse>> register(@Valid @RequestBody UserRegisterRequest request) {
@@ -53,7 +53,7 @@ public class UserController {
      * Path: /api/v/users/{id} (GET)
      *
      * @param id A unique ID attribute for a specific user
-     * @return A UserResponse instance with formatted safe fields
+     * @return A UserResponse instance with formatted safe fields in the ApiResponse structure
      */
     @GetMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<UserResponse>> getUserById(@PathVariable UUID id) {
@@ -72,7 +72,7 @@ public class UserController {
      * Controller method to get a list of all users
      * Path: /api/v/users (GET)
      *
-     * @return A List of UserResponse instances with formatted safe fields
+     * @return A List of UserResponse instances with formatted safe fields in the ApiResponse structure
      */
     @GetMapping
     public ResponseEntity<ApiResponse<List<UserResponse>>> getUsers() {
@@ -94,7 +94,7 @@ public class UserController {
      *
      * @param id      A unique ID attribute for a specific user
      * @param request A UserUpdateRequest instance with some provided fields
-     * @return A UserResponse instance with formatted safe fields
+     * @return A UserResponse instance with formatted safe fields in the ApiResponse structure
      */
     @PatchMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<UserResponse>> updateUserById(@PathVariable UUID id, @Valid @RequestBody UserUpdateRequest request) {
