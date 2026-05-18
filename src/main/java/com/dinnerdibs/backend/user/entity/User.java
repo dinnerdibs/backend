@@ -69,8 +69,7 @@ public class User extends BaseEntity {
     /**
      * A boolean flag to indicate whether a User's email address has been verified by the system
      */
-    @NotNull
-    @Column(name = "email_verified")
+    @Column(name = "email_verified", nullable = false)
     @Builder.Default
     private boolean emailVerified = false;
 
@@ -81,6 +80,7 @@ public class User extends BaseEntity {
     @NotNull(message = "Account status is required")
     @Enumerated(EnumType.STRING)
     @Column(name = "account_status")
+    @Builder.Default
     private AccountStatus accountStatus = AccountStatus.PENDING;
 
     /**
@@ -179,8 +179,7 @@ public class User extends BaseEntity {
     /**
      * A boolean flag to indicate whether the provided local street address must be visible to the public or not
      */
-    @NotNull
-    @Column(name = "show_address_local")
+    @Column(name = "show_address_local", nullable = false)
     @Builder.Default
     private boolean showAddressLocal = false;
 
