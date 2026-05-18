@@ -60,7 +60,6 @@ public class UserServiceImplementation implements UserService {
                 .build();
 
         // Initially set the role to the defaults
-        // 
         user.getRoles().add(Role.CUSTOMER);
 
         User savedUser = this.userRepository.save(user);
