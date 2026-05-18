@@ -34,6 +34,7 @@ public class UserRegisterRequest {
     @Size(min = 8, max = 100)
     private String password;
 
+    @NotBlank
     @Size(max = 100)
     private String displayName;
 }
