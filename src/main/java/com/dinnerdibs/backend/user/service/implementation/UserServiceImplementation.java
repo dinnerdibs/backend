@@ -60,7 +60,9 @@ public class UserServiceImplementation implements UserService {
                 .build();
 
         // Initially set the role to the defaults
+        // Add the roles CUSTOMER and CHEF for all users
         user.getRoles().add(Role.CUSTOMER);
+        user.getRoles().add(Role.CHEF);
 
         User savedUser = this.userRepository.save(user);
 
