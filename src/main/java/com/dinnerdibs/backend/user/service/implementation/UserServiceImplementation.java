@@ -172,7 +172,7 @@ public class UserServiceImplementation implements UserService {
         User user = this.userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Error: User with the ID " + id + " was not found!"));
 
-        this.userRepository.deleteById(id);
+        this.userRepository.delete(user);
     }
 
     /**
