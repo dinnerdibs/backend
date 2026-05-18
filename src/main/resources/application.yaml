@@ -9,3 +9,5 @@ spring:
     driver-class-name: org.postgresql.Driver
   application:
     name: backend
+environment:
+  mode: ${ENVIRONMENT_MODE}
