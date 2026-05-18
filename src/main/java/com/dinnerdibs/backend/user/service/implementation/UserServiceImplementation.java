@@ -1,5 +1,7 @@
 package com.dinnerdibs.backend.user.service.implementation;
 
+import com.dinnerdibs.backend.common.exception.DuplicateResourceException;
+import com.dinnerdibs.backend.common.exception.ResourceNotFoundException;
 import com.dinnerdibs.backend.user.dto.request.UserRegisterRequest;
 import com.dinnerdibs.backend.user.dto.request.UserUpdateRequest;
 import com.dinnerdibs.backend.user.dto.response.UserResponse;
@@ -36,12 +38,12 @@ public class UserServiceImplementation implements UserService {
     public UserResponse register(UserRegisterRequest request) {
         // Check if the provided email is previously already registered
         if (this.userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Error: Email already exists");
+            throw new DuplicateResourceException("Error: Email already exists");
         }
 
         // Check if the provided username is previously already registered
         if (this.userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("Error: Username already exists");
+            throw new DuplicateResourceException("Error: Username already exists");
         }
 
         User user = User.builder()
@@ -59,7 +61,9 @@ public class UserServiceImplementation implements UserService {
         // Initially set the role to the defaults
         user.getRoles().add(Role.CUSTOMER);
 
-        return this.mapToResponse(user);
+        User savedUser = this.userRepository.save(user);
+
+        return this.mapToResponse(savedUser);
     }
 
     /**
@@ -72,7 +76,7 @@ public class UserServiceImplementation implements UserService {
     public UserResponse getUserById(UUID id) {
         return this.userRepository.findById(id)
                 .map(this::mapToResponse)
-                .orElseThrow(() -> new RuntimeException("Error: User not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Error: The User with the ID " + id + " was not found"));
     }
 
     /**
@@ -98,7 +102,8 @@ public class UserServiceImplementation implements UserService {
     @Override
     public UserResponse updateUserById(UUID id, UserUpdateRequest request) {
         // Check if an existing user maps to the provided ID attribute
-        User user = this.userRepository.findById(id).orElseThrow(() -> new RuntimeException("Error: User not found!"));
+        User user = this.userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Error: User with the ID " + id + " was not found!"));
 
         // Check each specific User entity attribute in the UserUpdateRequest and update the user instance accordingly
 
@@ -164,6 +169,9 @@ public class UserServiceImplementation implements UserService {
      */
     @Override
     public void deleteUserById(UUID id) {
+        User user = this.userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Error: User with the ID " + id + " was not found!"));
+
         this.userRepository.deleteById(id);
     }
 
