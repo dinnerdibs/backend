@@ -2,6 +2,7 @@ package com.dinnerdibs.backend.user.service.implementation;
 
 import com.dinnerdibs.backend.common.exception.DuplicateResourceException;
 import com.dinnerdibs.backend.common.exception.ResourceNotFoundException;
+import com.dinnerdibs.backend.config.message.FailureMessages;
 import com.dinnerdibs.backend.user.dto.request.UserRegisterRequest;
 import com.dinnerdibs.backend.user.dto.request.UserUpdateRequest;
 import com.dinnerdibs.backend.user.dto.response.UserResponse;
@@ -38,12 +39,12 @@ public class UserServiceImplementation implements UserService {
     public UserResponse register(UserRegisterRequest request) {
         // Check if the provided email is previously already registered
         if (this.userRepository.existsByEmail(request.getEmail())) {
-            throw new DuplicateResourceException("Error: Email already exists");
+            throw new DuplicateResourceException(FailureMessages.ALREADY_EXISTS("email"));
         }
 
         // Check if the provided username is previously already registered
         if (this.userRepository.existsByUsername(request.getUsername())) {
-            throw new DuplicateResourceException("Error: Username already exists");
+            throw new DuplicateResourceException(FailureMessages.ALREADY_EXISTS("username"));
         }
 
         User user = User.builder()
@@ -76,7 +77,7 @@ public class UserServiceImplementation implements UserService {
     public UserResponse getUserById(UUID id) {
         return this.userRepository.findById(id)
                 .map(this::mapToResponse)
-                .orElseThrow(() -> new ResourceNotFoundException("Error: The User with the ID " + id + " was not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(FailureMessages.NOT_FOUND(id.toString())));
     }
 
     /**
@@ -103,7 +104,7 @@ public class UserServiceImplementation implements UserService {
     public UserResponse updateUserById(UUID id, UserUpdateRequest request) {
         // Check if an existing user maps to the provided ID attribute
         User user = this.userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Error: User with the ID " + id + " was not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException(FailureMessages.NOT_FOUND(id.toString())));
 
         // Check each specific User entity attribute in the UserUpdateRequest and update the user instance accordingly
 
@@ -170,7 +171,7 @@ public class UserServiceImplementation implements UserService {
     @Override
     public void deleteUserById(UUID id) {
         User user = this.userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Error: User with the ID " + id + " was not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException(FailureMessages.NOT_FOUND(id.toString())));
 
         this.userRepository.delete(user);
     }
