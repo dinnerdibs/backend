@@ -97,7 +97,7 @@ public class User extends BaseEntity {
      */
     @NotBlank(message = "Display name is a required field")
     @Size(max = 100, message = "Display name cannot exceed over 100 characters")
-    @Column(name = "display_name")
+    @Column(name = "display_name", nullable = false)
     private String displayName;
 
     /**
