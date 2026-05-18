@@ -2,6 +2,7 @@ package com.dinnerdibs.backend.user.controller;
 
 import com.dinnerdibs.backend.common.response.ApiResponse;
 import com.dinnerdibs.backend.config.api.ApiPaths;
+import com.dinnerdibs.backend.config.message.SuccessMessages;
 import com.dinnerdibs.backend.user.dto.request.UserRegisterRequest;
 import com.dinnerdibs.backend.user.dto.request.UserUpdateRequest;
 import com.dinnerdibs.backend.user.dto.response.UserResponse;
@@ -41,7 +42,7 @@ public class UserController {
 
         ApiResponse<UserResponse> response = ApiResponse.<UserResponse>builder()
                 .success(true)
-                .message("User registered successfully")
+                .message(SuccessMessages.CREATED)
                 .data(registeredUser)
                 .build();
 
@@ -61,7 +62,7 @@ public class UserController {
 
         ApiResponse<UserResponse> response = ApiResponse.<UserResponse>builder()
                 .success(true)
-                .message("User retrieved successfully")
+                .message(SuccessMessages.RETRIEVED)
                 .data(user)
                 .build();
 
@@ -80,7 +81,7 @@ public class UserController {
 
         ApiResponse<List<UserResponse>> response = ApiResponse.<List<UserResponse>>builder()
                 .success(true)
-                .message("Users retrieved successfully")
+                .message(SuccessMessages.RETRIEVED)
                 .size(users.size())
                 .data(users)
                 .build();
@@ -102,7 +103,7 @@ public class UserController {
 
         ApiResponse<UserResponse> response = ApiResponse.<UserResponse>builder()
                 .success(true)
-                .message("User updated successfully")
+                .message(SuccessMessages.UPDATED)
                 .data(updatedUser)
                 .build();
 
@@ -121,7 +122,7 @@ public class UserController {
 
         ApiResponse<Void> response = ApiResponse.<Void>builder()
                 .success(true)
-                .message("User deleted successfully")
+                .message(SuccessMessages.DELETED)
                 .build();
 
         return ResponseEntity.ok(response);
