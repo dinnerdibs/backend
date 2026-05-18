@@ -1,6 +1,6 @@
 package com.dinnerdibs.backend.user.entity;
 
-import com.dinnerdibs.backend.common.BaseEntity;
+import com.dinnerdibs.backend.common.entity.BaseEntity;
 import com.dinnerdibs.backend.user.enums.AccountStatus;
 import com.dinnerdibs.backend.user.enums.Role;
 import jakarta.persistence.*;

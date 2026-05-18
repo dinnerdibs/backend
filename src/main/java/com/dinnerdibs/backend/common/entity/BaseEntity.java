@@ -1,4 +1,4 @@
-package com.dinnerdibs.backend.common;
+package com.dinnerdibs.backend.common.entity;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
